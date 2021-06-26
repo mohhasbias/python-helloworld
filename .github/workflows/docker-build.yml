@@ -35,9 +35,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Version
-        run: echo "Version ${{github.ref}}"
+      - 
+        name: Get tag name
+        id: get_tag_name
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - 
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ steps.get_tag_name.outputs.VERSION }}
 #       -
 #         name: Build and push
 #         uses: docker/build-push-action@v2
