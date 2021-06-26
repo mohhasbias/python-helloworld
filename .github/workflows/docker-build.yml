@@ -43,12 +43,12 @@ jobs:
         uses: actions/checkout@v1
         with:
           ref: ${{ steps.get_tag_name.outputs.VERSION }}
-#       -
-#         name: Build and push
-#         uses: docker/build-push-action@v2
-#         with:
-#           context: .
-#           file: ./Dockerfile
-#           platforms: linux/amd64
-#           push: true
-#           tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-helloworld:${{github.ref}}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-helloworld:${{steps.get_tag_name.outputs.VERSION}}
